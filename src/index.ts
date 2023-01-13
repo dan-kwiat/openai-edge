@@ -1,4 +1,3 @@
-import { AxiosRequestConfig } from "./axios"
 import { ConfigurationParameters, CreateCompletionRequest } from "./types"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
@@ -175,8 +174,8 @@ export class OpenAIApi extends BaseAPI {
    * @memberof OpenAIApi
    */
   async createCompletion(
-    createCompletionRequest: CreateCompletionRequest,
-    options?: AxiosRequestConfig
+    createCompletionRequest: CreateCompletionRequest
+    // options?: AxiosRequestConfig
   ) {
     // return exports
     //   .OpenAIApiFp(this.configuration)

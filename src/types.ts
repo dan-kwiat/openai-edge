@@ -1,5 +1,3 @@
-import { AxiosRequestConfig, AxiosResponse } from "./axios"
-
 export interface ConfigurationParameters {
   apiKey?:
     | string
@@ -376,9 +374,10 @@ export declare class OpenAIApi extends BaseAPI {
    * @memberof OpenAIApi
    */
   createCompletion(
-    createCompletionRequest: CreateCompletionRequest,
-    options?: AxiosRequestConfig
-  ): Promise<AxiosResponse<CreateCompletionResponse, any>>
+    createCompletionRequest: CreateCompletionRequest
+  ): // options?: AxiosRequestConfig
+  Promise<Response>
+  // Promise<AxiosResponse<CreateCompletionResponse, any>>
   // /**
   //  *
   //  * @summary Creates an image given a prompt.
