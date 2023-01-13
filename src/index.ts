@@ -2,28 +2,6 @@ import { ConfigurationParameters, CreateCompletionRequest } from "./types"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
-// export function sum(...nums: number[]): number {
-//   let i = 0,
-//     total = 0
-//   for (; i < nums.length; i++) total += nums[i]
-//   return total
-// }
-
-// export function substract(...nums: number[]): number {
-//   let i = 0,
-//     total = nums[i++] | 0
-//   for (; i < nums.length; i++) total -= nums[i]
-//   return total
-// }
-
-// export function average(...nums: number[]): number {
-//   let i = 0,
-//     len = nums.length,
-//     total = 0
-//   for (; i < len; i++) total += nums[i]
-//   return total / len
-// }
-
 export class Configuration {
   /**
    * parameter for apiKey security
@@ -177,27 +155,6 @@ export class OpenAIApi extends BaseAPI {
     createCompletionRequest: CreateCompletionRequest
     // options?: AxiosRequestConfig
   ) {
-    // return exports
-    //   .OpenAIApiFp(this.configuration)
-    //   .createCompletion(createCompletionRequest, options)
-    //   .then((request) => request(this.axios, this.basePath))
-    // let API_KEY: string
-    // try {
-    //   if (!this.configuration || !this.configuration.apiKey) {
-    //     throw new Error("No API key provided")
-    //   }
-    //   if (typeof this.configuration.apiKey === "function") {
-    //     API_KEY = await this.configuration.apiKey("name") // not sure what param should be passed here
-    //   } else {
-    //     API_KEY = await this.configuration.apiKey
-    //   }
-    //   if (!API_KEY) {
-    //     throw new Error("No API key provided")
-    //   }
-    // } catch (err: any) {
-    //   throw new Error(`Must provide a valid API key`)
-    // }
-
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
