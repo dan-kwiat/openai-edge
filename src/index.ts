@@ -205,11 +205,10 @@ export class OpenAIApi extends BaseAPI {
 
     return fetch("https://api.openai.com/v1/completions", {
       method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization: `Bearer ${API_KEY}`,
-      // },
-      headers: this.configuration.baseOptions.headers,
+      headers: {
+        ...this.configuration.baseOptions.headers,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(createCompletionRequest),
     })
   }
