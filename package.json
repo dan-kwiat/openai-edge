@@ -1,0 +1,51 @@
+{
+  "version": "0.0.0",
+  "name": "TODO",
+  "umd:name": "TODO",
+  "repository": "TODO_USERNAME/TODO_REPO",
+  "description": "TODO_MODULE_DESCRIPTION",
+  "unpkg": "dist/index.min.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "TODO_YOUR_NAME",
+    "email": "YOUR_EMAIL@TODO.com",
+    "url": "https://TODO_WEBSITE.com"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build",
+    "types": "tsc --noEmit",
+    "test": "uvu -r tsm test"
+  },
+  "keywords": [
+    "TODO",
+    "module",
+    "keywords"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "13.1.3",
+    "rollup": "2.66.1",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-typescript2": "0.27.1",
+    "tsm": "2.2.1",
+    "typescript": "4.5.5",
+    "uvu": "0.5.3"
+  }
+}
