@@ -4,8 +4,22 @@ A TypeScript module for querying OpenAI's API from an edge function environment
 i.e. using standard Web APIs instead of native Node.js APIs. Edge functions
 allow streaming data to the client whereas lambda functions do not.
 
-Example using NextJS
-[Edge API Routes](https://nextjs.org/docs/api-routes/edge-api-routes):
+## Installation
+
+```shell
+yarn add openai-edge
+```
+
+or
+
+```shell
+npm install openai-edge
+```
+
+## Examples
+
+Using
+[Next.js Edge API Routes](https://nextjs.org/docs/api-routes/edge-api-routes):
 
 ```typescript
 import type { NextRequest } from "next/server"
