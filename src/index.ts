@@ -1,4 +1,6 @@
-import { ConfigurationParameters, CreateCompletionRequest } from "./types"
+import { ConfigurationParameters } from "./types/config"
+import { CreateCompletionRequest } from "./types/completion"
+import { CreateImageRequest } from "./types/image"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
@@ -147,18 +149,16 @@ export class OpenAIApi extends BaseAPI {
    *
    * @summary Creates a completion for the provided prompt and parameters
    * @param {CreateCompletionRequest} createCompletionRequest
-   * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof OpenAIApi
    */
-  async createCompletion(
+  createCompletion(
     createCompletionRequest: CreateCompletionRequest
     // options?: AxiosRequestConfig
   ) {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-
     return fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
@@ -168,15 +168,27 @@ export class OpenAIApi extends BaseAPI {
       body: JSON.stringify(createCompletionRequest),
     })
   }
-  // /**
-  //  *
-  //  * @summary Creates an image given a prompt.
-  //  * @param {CreateImageRequest} createImageRequest
-  //  * @param {*} [options] Override http request option.
-  //  * @throws {RequiredError}
-  //  * @memberof OpenAIApi
-  //  */
-  // createImage(createImageRequest, options) {
-  //     return exports.OpenAIApiFp(this.configuration).createImage(createImageRequest, options).then((request) => request(this.axios, this.basePath));
-  // }
+  /**
+   *
+   * @summary Creates an image given a prompt.
+   * @param {CreateImageRequest} createImageRequest
+   * @throws {RequiredError}
+   * @memberof OpenAIApi
+   */
+  createImage(
+    createImageRequest: CreateImageRequest
+    // options?: AxiosRequestConfig
+  ) {
+    if (!this.configuration) {
+      throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
+    }
+    return fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        ...this.configuration.baseOptions.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createImageRequest),
+    })
+  }
 }

@@ -1,8 +1,10 @@
 # OpenAI Edge
 
 A TypeScript module for querying OpenAI's API from an edge function environment
-i.e. using standard Web APIs instead of native Node.js APIs. Edge functions
-allow streaming data to the client whereas lambda functions do not.
+i.e. using `fetch` (a standard Web API) instead of `axios`.
+
+Edge functions are very fast and, unlike lambda functions, allow streaming data
+to the client.
 
 ## Installation
 
@@ -16,10 +18,18 @@ or
 npm install openai-edge
 ```
 
+## Methods
+
+This module offers a subset of the methods available in the official Node
+package. The syntax and types are essentially the same but the methods return
+the standard Fetch `Promise<Response>`.
+
+- `openai.createCompletion`
+- `openai.createImage`
+
 ## Examples
 
-Using
-[Next.js Edge API Routes](https://nextjs.org/docs/api-routes/edge-api-routes):
+### Streaming text completion from a [Next.js Edge API Route](https://nextjs.org/docs/api-routes/edge-api-routes):
 
 ```typescript
 import type { NextRequest } from "next/server"
