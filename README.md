@@ -25,11 +25,15 @@ package. The syntax and types are essentially the same but the methods return
 the standard Fetch `Promise<Response>`.
 
 - `openai.createCompletion`
-- `openai.createImage`
+- `openai.createImage` (since `v0.2.0`)
 
 ## Examples
 
-### Streaming text completion from a [Next.js Edge API Route](https://nextjs.org/docs/api-routes/edge-api-routes):
+Here are some sample
+[Next.js Edge API Routes](https://nextjs.org/docs/api-routes/edge-api-routes)
+using `openai-edge`.
+
+### 1. Streaming text completion with Davinci
 
 ```typescript
 import type { NextRequest } from "next/server"
@@ -58,6 +62,56 @@ const handler = async (req: NextRequest) => {
         "Content-Type": "text/event-stream;charset=utf-8",
         "Cache-Control": "no-cache, no-transform",
         "X-Accel-Buffering": "no",
+      },
+    })
+  } catch (error: any) {
+    console.error(error)
+
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+  }
+}
+
+export const config = {
+  runtime: "edge",
+}
+
+export default handler
+```
+
+### 2. Creating an Image with DALL·E
+
+```typescript
+import type { NextRequest } from "next/server"
+import { Configuration, OpenAIApi } from "openai-edge"
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+})
+const openai = new OpenAIApi(configuration)
+
+const handler = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url)
+
+  try {
+    const image = await openai.createImage({
+      prompt: searchParams.get("prompt") ?? "A cute baby sea otter",
+      n: 1,
+      size: "512x512",
+      response_format: "url",
+    })
+
+    const json = await image.json()
+    const url = json?.data?.[0]?.url
+
+    return new Response(JSON.stringify({ url }), {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
       },
     })
   } catch (error: any) {
