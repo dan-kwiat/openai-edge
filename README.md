@@ -35,6 +35,12 @@ using `openai-edge`.
 
 ### 1. Streaming text completion with Davinci
 
+Note that when using the `stream: true` option, OpenAI responds with
+[server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events).
+Here's an example
+[react hook to consume SSEs](https://github.com/dan-kwiat/react-hooks#useserversentevents)
+and here's a [full NextJS example](https://github.com/dan-kwiat/chat-gpt-clone).
+
 ```typescript
 import type { NextRequest } from "next/server"
 import { Configuration, OpenAIApi } from "openai-edge"
