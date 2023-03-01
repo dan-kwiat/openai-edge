@@ -1,6 +1,7 @@
 import { ConfigurationParameters } from "./types/config"
 import { CreateCompletionRequest } from "./types/completion"
 import { CreateImageRequest } from "./types/image"
+import { CreateChatCompletionRequest } from "./types/chat"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
@@ -147,12 +148,50 @@ class BaseAPI {
 export class OpenAIApi extends BaseAPI {
   /**
    *
+   * @summary Creates a completion for the chat message
+   * @param {CreateChatCompletionRequest} createChatCompletionRequest
+   * @throws {RequiredError}
+   * @memberof OpenAIApi
+   */
+
+  //  * @param {*} [options] Override http request option.
+
+  public createChatCompletion(
+    createChatCompletionRequest: CreateChatCompletionRequest
+    // options?: AxiosRequestConfig
+  ) {
+    if (!this.configuration) {
+      throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
+    }
+    return fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        ...this.configuration.baseOptions.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createChatCompletionRequest),
+    })
+  }
+
+  /**
+   *
+   * @summary Classifies the specified `query` using provided examples.  The endpoint first [searches](/docs/api-reference/searches) over the labeled examples to select the ones most relevant for the particular query. Then, the relevant examples are combined with the query to construct a prompt to produce the final label via the [completions](/docs/api-reference/completions) endpoint.  Labeled examples can be provided via an uploaded `file`, or explicitly listed in the request using the `examples` parameter for quick tests and small scale use cases.
+   * @param {CreateClassificationRequest} createClassificationRequest
+   * @deprecated
+   * @throws {RequiredError}
+   * @memberof OpenAIApi
+   */
+
+  //  * @param {*} [options] Override http request option.
+
+  /**
+   *
    * @summary Creates a completion for the provided prompt and parameters
    * @param {CreateCompletionRequest} createCompletionRequest
    * @throws {RequiredError}
    * @memberof OpenAIApi
    */
-  createCompletion(
+  public createCompletion(
     createCompletionRequest: CreateCompletionRequest
     // options?: AxiosRequestConfig
   ) {
@@ -175,7 +214,7 @@ export class OpenAIApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof OpenAIApi
    */
-  createImage(
+  public createImage(
     createImageRequest: CreateImageRequest
     // options?: AxiosRequestConfig
   ) {
