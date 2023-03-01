@@ -33,7 +33,7 @@ Here are some sample
 [Next.js Edge API Routes](https://nextjs.org/docs/api-routes/edge-api-routes)
 using `openai-edge`.
 
-### 1. Streaming text completion with Davinci
+### 1. Streaming chat with `gpt-3.5-turbo`
 
 Note that when using the `stream: true` option, OpenAI responds with
 [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events).
@@ -54,9 +54,17 @@ const handler = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url)
 
   try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: searchParams.get("prompt") ?? "Say this is a test",
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Who won the world series in 2020?" },
+        {
+          role: "assistant",
+          content: "The Los Angeles Dodgers won the World Series in 2020.",
+        },
+        { role: "user", content: "Where was it played?" },
+      ],
       max_tokens: 7,
       temperature: 0,
       stream: true,
@@ -89,7 +97,57 @@ export const config = {
 export default handler
 ```
 
-### 2. Creating an Image with DALL·E
+### 2. Text completion with Davinci
+
+```typescript
+import type { NextRequest } from "next/server"
+import { Configuration, OpenAIApi } from "openai-edge"
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+})
+const openai = new OpenAIApi(configuration)
+
+const handler = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url)
+
+  try {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: searchParams.get("prompt") ?? "Say this is a test",
+      max_tokens: 7,
+      temperature: 0,
+      stream: false,
+    })
+
+    const data = await completion.json()
+
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+  } catch (error: any) {
+    console.error(error)
+
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+  }
+}
+
+export const config = {
+  runtime: "edge",
+}
+
+export default handler
+```
+
+### 3. Creating an Image with DALL·E
 
 ```typescript
 import type { NextRequest } from "next/server"
