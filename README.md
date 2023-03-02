@@ -24,8 +24,9 @@ This module offers a subset of the methods available in the official Node
 package. The syntax and types are essentially the same but the methods return
 the standard Fetch `Promise<Response>`.
 
-- `openai.createCompletion`
-- `openai.createImage` (since `v0.2.0`)
+- `createChatCompletion`
+- `createCompletion`
+- `createImage`
 
 ## Examples
 
