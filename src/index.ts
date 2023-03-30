@@ -2,6 +2,7 @@ import { ConfigurationParameters } from "./types/config"
 import { CreateCompletionRequest } from "./types/completion"
 import { CreateImageRequest } from "./types/image"
 import { CreateChatCompletionRequest } from "./types/chat"
+import { CreateModerationRequest } from "./types/moderation"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
@@ -213,6 +214,29 @@ export class OpenAIApi extends BaseAPI {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(createImageRequest),
+    })
+  }
+   /**
+   *
+   * @summary Classifies if text violates OpenAI's Content Policy.
+   * @param {CreateModerationRequest} createModerationRequest
+   * @throws {RequiredError}
+   * @memberof OpenAIApi
+   */
+  public createModeration(
+    createModerationRequest: CreateModerationRequest
+    // options?: AxiosRequestConfig
+  ) {
+    if (!this.configuration) {
+      throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
+    }
+    return fetch("https://api.openai.com/v1/moderations", {
+      method: "POST",
+      headers: {
+        ...this.configuration.baseOptions.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createModerationRequest),
     })
   }
 }
