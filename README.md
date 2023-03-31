@@ -27,6 +27,7 @@ the standard Fetch `Promise<Response>`.
 - `createChatCompletion`
 - `createCompletion`
 - `createImage`
+- `createModeration`
 
 ## Examples
 
