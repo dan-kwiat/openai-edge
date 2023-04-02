@@ -3,6 +3,7 @@ import { CreateCompletionRequest } from "./types/completion"
 import { CreateImageRequest } from "./types/image"
 import { CreateChatCompletionRequest } from "./types/chat"
 import { CreateModerationRequest } from "./types/moderation"
+import { CreateEmbeddingRequest } from "./types/embedding"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
@@ -216,7 +217,7 @@ export class OpenAIApi extends BaseAPI {
       body: JSON.stringify(createImageRequest),
     })
   }
-   /**
+  /**
    *
    * @summary Classifies if text violates OpenAI's Content Policy.
    * @param {CreateModerationRequest} createModerationRequest
@@ -237,6 +238,29 @@ export class OpenAIApi extends BaseAPI {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(createModerationRequest),
+    })
+  }
+  /**
+   *
+   * @summary Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+   * @param {CreateEmbeddingRequest} createEmbeddingRequest
+   * @throws {RequiredError}
+   * @memberof OpenAIApi
+   */
+  public createEmbedding(
+    createEmbeddingRequest: CreateEmbeddingRequest
+    // options?: AxiosRequestConfig
+  ) {
+    if (!this.configuration) {
+      throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
+    }
+    return fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
+      headers: {
+        ...this.configuration.baseOptions.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createEmbeddingRequest),
     })
   }
 }
