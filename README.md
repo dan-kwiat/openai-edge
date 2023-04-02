@@ -28,6 +28,7 @@ the standard Fetch `Promise<Response>`.
 - `createCompletion`
 - `createImage`
 - `createModeration`
+- `createEmbedding`
 
 ## Examples
 
