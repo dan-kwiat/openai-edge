@@ -134,7 +134,7 @@ export class Configuration {
 class BaseAPI {
   basePath: string
   configuration?: Configuration
-  fetch?: FetchAPI
+  fetch: FetchAPI
 
   constructor(
     configuration?: Configuration,
@@ -177,7 +177,7 @@ export class OpenAIApi extends BaseAPI {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-    return fetch("https://api.openai.com/v1/chat/completions", {
+    return this.fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         ...this.configuration.baseOptions.headers,
@@ -200,7 +200,7 @@ export class OpenAIApi extends BaseAPI {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-    return fetch("https://api.openai.com/v1/completions", {
+    return this.fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
         ...this.configuration.baseOptions.headers,
@@ -223,7 +223,7 @@ export class OpenAIApi extends BaseAPI {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-    return fetch("https://api.openai.com/v1/images/generations", {
+    return this.fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
       headers: {
         ...this.configuration.baseOptions.headers,
@@ -246,7 +246,7 @@ export class OpenAIApi extends BaseAPI {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-    return fetch("https://api.openai.com/v1/moderations", {
+    return this.fetch("https://api.openai.com/v1/moderations", {
       method: "POST",
       headers: {
         ...this.configuration.baseOptions.headers,
@@ -269,7 +269,7 @@ export class OpenAIApi extends BaseAPI {
     if (!this.configuration) {
       throw new Error(`Must provide a valid configuration to \`OpenAIApi\``)
     }
-    return fetch("https://api.openai.com/v1/embeddings", {
+    return this.fetch("https://api.openai.com/v1/embeddings", {
       method: "POST",
       headers: {
         ...this.configuration.baseOptions.headers,
