@@ -7,6 +7,11 @@ import { CreateEmbeddingRequest } from "./types/embedding"
 
 const BASE_PATH = "https://api.openai.com/v1".replace(/\/+$/, "")
 
+type FetchAPI = (
+  input: RequestInfo | URL,
+  init?: RequestInit | undefined
+) => Promise<Response>
+
 export class Configuration {
   /**
    * parameter for apiKey security
@@ -72,7 +77,6 @@ export class Configuration {
    * @type {new () => FormData}
    */
   formDataCtor?: new () => any
-  // asdlfkalsdfkmad
   constructor(param: ConfigurationParameters = {}) {
     this.apiKey = param.apiKey
     this.organization = param.organization
@@ -130,8 +134,19 @@ export class Configuration {
 class BaseAPI {
   basePath: string
   configuration?: Configuration
+  fetch?: FetchAPI
 
-  constructor(configuration?: Configuration, basePath: string = BASE_PATH) {
+  constructor(
+    configuration?: Configuration,
+    basePath: string = BASE_PATH,
+    customFetch?: FetchAPI
+  ) {
+    if (typeof fetch === "undefined" && !customFetch) {
+      throw new Error(
+        "You must pass a fetch polyfill into the openai-edge configuration if you're running in an environment without a global fetch"
+      )
+    }
+    this.fetch = customFetch ? customFetch : fetch
     this.basePath = basePath
     // this.axios = axios;
     if (configuration) {
