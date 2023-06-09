@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import FORM_DATA from "form-data"
+import { CustomFormData } from "./form-data"
 
 export interface ConfigurationParameters {
   apiKey?:
@@ -121,7 +121,7 @@ export class Configuration {
       this.baseOptions.headers["OpenAI-Organization"] = this.organization
     }
     if (!this.formDataCtor) {
-      this.formDataCtor = FORM_DATA
+      this.formDataCtor = CustomFormData
     }
   }
 
