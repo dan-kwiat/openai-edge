@@ -3,11 +3,9 @@
     "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs",
-      "sourceMap": true,
+      "sourceMap": true
     },
-    "include": [
-      "test/**/*"
-    ]
+    "include": ["test/**/*"]
   },
   "compilerOptions": {
     "target": "esnext",
@@ -18,13 +16,9 @@
     "moduleResolution": "node",
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "@types/**/*",
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["@types/**/*", "src/**/*"],
+  "exclude": ["node_modules"]
 }
