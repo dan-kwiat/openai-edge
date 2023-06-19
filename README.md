@@ -8,7 +8,9 @@ As well as reducing the bundle size, removing the dependency means we can query
 OpenAI from edge environments. Edge functions such as Next.js Edge API Routes
 are very fast and, unlike lambda functions, allow streaming data to the client.
 
-The latest version of this module has feature parity with the official `v3.2.1`.
+The latest version of this module has feature parity with the official `v3.3.0`,
+and also supports the chat completion `functions` parameter, which isn't yet
+included in the official module.
 
 ## Installation
 
@@ -67,7 +69,7 @@ const openai = new OpenAIApi(configuration, undefined, fetch)
 
 - `cancelFineTune`
 - `createAnswer`
-- `createChatCompletion`
+- `createChatCompletion` (including support for `functions`)
 - `createClassification`
 - `createCompletion`
 - `createEdit`
