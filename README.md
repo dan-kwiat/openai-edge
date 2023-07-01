@@ -96,6 +96,10 @@ const openai = new OpenAIApi(configuration, undefined, fetch)
 - `retrieveFineTune`
 - `retrieveModel`
 
+## Without global FormData
+
+This module also expects to be in an environment where `FormData` is defined. If you're running in Node.js, that means using v18 or later.
+
 ## Edge route handler examples
 
 Here are some sample
