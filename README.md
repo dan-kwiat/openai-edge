@@ -8,9 +8,11 @@ As well as reducing the bundle size, removing the dependency means we can query
 OpenAI from edge environments. Edge functions such as Next.js Edge API Routes
 are very fast and, unlike lambda functions, allow streaming data to the client.
 
-The latest version of this module has feature parity with the official `v3.3.0`,
-and also supports the chat completion `functions` parameter, which isn't yet
-included in the official module.
+The latest version of this module has feature parity with the official `v3.3.0`.
+
+> **Update July 2023:** The official `openai` library will use `fetch` in v4,
+> hopefully making `openai-edge` redundant. You can try it in beta now, more
+> info here: https://github.com/openai/openai-node/discussions/182
 
 ## Installation
 
@@ -65,6 +67,11 @@ import fetch from "node-fetch"
 const openai = new OpenAIApi(configuration, undefined, fetch)
 ```
 
+## Without global FormData
+
+This module also expects to be in an environment where `FormData` is defined. If
+you're running in Node.js, that means using v18 or later.
+
 ## Available methods
 
 - `cancelFineTune`
@@ -95,10 +102,6 @@ const openai = new OpenAIApi(configuration, undefined, fetch)
 - `retrieveFile`
 - `retrieveFineTune`
 - `retrieveModel`
-
-## Without global FormData
-
-This module also expects to be in an environment where `FormData` is defined. If you're running in Node.js, that means using v18 or later.
 
 ## Edge route handler examples
 
