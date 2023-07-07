@@ -30,6 +30,7 @@ export interface ConfigurationParameters {
     | ((name?: string, scopes?: string[]) => Promise<string>)
   basePath?: string
   baseOptions?: any
+  defaultQueryParams?: URLSearchParams
   formDataCtor?: new () => any
 }
 
@@ -97,6 +98,7 @@ export class Configuration {
    *
    * @type {new () => FormData}
    */
+  defaultQueryParams?: URLSearchParams
   formDataCtor?: new () => any
 
   constructor(param: ConfigurationParameters = {}) {
@@ -107,6 +109,7 @@ export class Configuration {
     this.accessToken = param.accessToken
     this.basePath = param.basePath
     this.baseOptions = param.baseOptions
+    this.defaultQueryParams = param.defaultQueryParams
     this.formDataCtor = param.formDataCtor
 
     if (!this.baseOptions) {

@@ -195,9 +195,13 @@ export const createRequestFunction = function (
         "You must pass a fetch polyfill if you're running in an environment without a global fetch"
       )
     }
-    return fetch(
-      (configuration?.basePath || basePath) + fetchArgs.url,
-      fetchArgs.options
-    )
+
+    let url = fetchArgs.url
+    if (configuration?.defaultQueryParams) {
+      const queryPrefix = url.indexOf("?") === -1 ? "?" : "&"
+      url += queryPrefix + configuration.defaultQueryParams
+    }
+
+    return fetch((configuration?.basePath || basePath) + url, fetchArgs.options)
   }
 }
