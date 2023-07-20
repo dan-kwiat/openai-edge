@@ -54,6 +54,26 @@ const url = data.data?.[0]?.url
 console.log({ url })
 ```
 
+## With Azure
+
+To use with Azure OpenAI Service you'll need to include an `api-key` header and
+an `api-version` query parameter:
+
+```typescript
+const config = new Configuration({
+  apiKey: AZURE_OPENAI_API_KEY,
+  baseOptions: {
+    headers: {
+      "api-key": AZURE_OPENAI_API_KEY,
+    },
+  },
+  basePath: `https://YOUR_RESOURCE_NAME.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME`,
+  defaultQueryParams: new URLSearchParams({
+    "api-version": AZURE_OPENAI_API_VERSION,
+  }),
+})
+```
+
 ## Without global fetch
 
 This module has zero dependencies and it expects `fetch` to be in the global
