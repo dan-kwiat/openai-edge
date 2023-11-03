@@ -10,9 +10,12 @@ are very fast and, unlike lambda functions, allow streaming data to the client.
 
 The latest version of this module has feature parity with the official `v3.3.0`.
 
-> **Update July 2023:** The official `openai` library will use `fetch` in v4,
-> hopefully making `openai-edge` redundant. You can try it in beta now, more
-> info here: https://github.com/openai/openai-node/discussions/182
+> [!IMPORTANT]
+> **Update November 2023:** The official `openai` library uses `fetch` in v4
+> on edge runtimes, making `openai-edge` redundant.
+> 
+> You can migrate by replacing all imports of `'openai-node'` with `'openai'` and
+> running `npm exec openai migrate`
 
 ## Installation
 
